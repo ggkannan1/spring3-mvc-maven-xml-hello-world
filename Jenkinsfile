@@ -14,7 +14,7 @@ pipeline {
         stage('Package') {
             steps {
                 //maven package
-                sh 'mvn packagesss'
+                sh 'mvn package'
             }
         }
         stage('Artifact') {
