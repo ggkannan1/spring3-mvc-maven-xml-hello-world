@@ -14,7 +14,7 @@ pipeline {
         stage('Package') {
             steps {
                 //maven package
-                sh 'mvn package'
+                sh 'mvn packagesss'
             }
         }
         stage('Artifact') {
@@ -30,6 +30,20 @@ pipeline {
                 sh "curl -v -u ${tomcat_cred} -T /var/lib/jenkins/workspace/tomcat_deploy_pipeline/target/spring3-mvc-maven-xml-hello-world-1.0-SNAPSHOT.war 'http://54.234.159.204:8080/manager/text/deploy?path=/pipeline_spring3&update=true'"
                 }
             }
+        }
+    }
+	post {
+        failure {
+            script {
+                currentBuild.result = 'FAILURE'
+            }
+        }
+
+        always {
+            step([$class: 'Mailer',
+                notifyEveryUnstableBuild: true,
+                recipients: "ggkannan1@gmail.com",
+                sendToIndividuals: true])
         }
     }
 }
