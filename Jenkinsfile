@@ -19,12 +19,13 @@ pipeline {
         }
         stage('Artifact') {
             steps {
-                //maven package
+		//Showing Artifact
                 archiveArtifacts artifacts: 'target/*.war', followSymlinks: false
             }
         }
         stage('Deploy') {
             steps {
+		//Deploy to tomcat in a static way
                 withCredentials([usernameColonPassword(credentialsId: 'tomcat-credentials', variable: 'tomcat_cred')]) {
                 sh "curl -v -u ${tomcat_cred} -T /var/lib/jenkins/workspace/tomcat_deploy_pipeline/target/spring3-mvc-maven-xml-hello-world-1.0-SNAPSHOT.war 'http://54.234.159.204:8080/manager/text/deploy?path=/pipeline_spring3&update=true'"
                 }
