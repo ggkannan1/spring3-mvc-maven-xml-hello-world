@@ -14,7 +14,7 @@ pipeline {
         stage('Package') {
             steps {
                 //maven package
-                sh 'mvn package'
+                sh 'mvn packagessss'
             }
         }
         stage('Artifact') {
@@ -42,7 +42,7 @@ pipeline {
         always {
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: true,
-                recipients: "ggkannan1@gmail.com",
+                emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [buildUser()], replyTo: 'ggkannanone@gmail.com', 	 	 subject: '$DEFAULT_SUBJECT', to: 'ggkannan1@gmail.com'
                 sendToIndividuals: true])
         }
     }
