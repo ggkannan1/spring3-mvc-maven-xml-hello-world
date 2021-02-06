@@ -27,7 +27,7 @@ pipeline {
             steps {
 		//Deploy to tomcat in a static way
                 withCredentials([usernameColonPassword(credentialsId: 'tomcat-credentials', variable: 'tomcat_cred')]) {
-                sh "curl -v -u ${tomcat_cred} -T /var/lib/jenkins/workspace/tomcat_deploy_pipeline/target/spring3-mvc-maven-xml-hello-world-1.0-SNAPSHOT.war 'http://54.234.159.204:8080/manager/text/deploy?path=/pipeline_spring3&update=true'"
+                sh "curl -v -u ${tomcat_cred} -T /var/lib/jenkins/workspace/tomcat_deploy_pipeline/target/spring3-mvc-maven-xml-hello-world-1.0-SNAPSHOT.war 'http://3.90.105.49:8080/manager/text/deploy?path=/pipeline_spring3&update=true'"
                 }
             }
         }
@@ -40,10 +40,7 @@ pipeline {
         }
 
         always {
-            step([$class: 'Mailer',
-                notifyEveryUnstableBuild: true,
-                emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [buildUser()], replyTo: 'ggkannanone@gmail.com', 	 	 subject: '$DEFAULT_SUBJECT', to: 'ggkannan1@gmail.com'
-                sendToIndividuals: true])
+                emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [buildUser()], replyTo: 'ggkannanone@gmail.com', subject: '$DEFAULT_SUBJECT', to: 'ggkannan1@gmail.com'
         }
     }
 }
