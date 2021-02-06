@@ -40,7 +40,8 @@ pipeline {
         }
 
         always {
-                emailext attachLog: true, body: '$DEFAULT_CONTENT', recipientProviders: [buildUser()], replyTo: 'ggkannanone@gmail.com', subject: '$DEFAULT_SUBJECT', to: 'ggkannan1@gmail.com'
+	      emailext attachLog: true, attachmentsPattern: '**/target/*.war', body: '$DEFAULT_CONTENT', compressLog: true, recipientProviders: [buildUser()], replyTo: '$DEFAULT_REPLYTO', subject: '$DEFAULT_SUBJECT', to: '$DEFAULT_RECIPIENTS'
         }
+
     }
 }
