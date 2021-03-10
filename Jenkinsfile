@@ -10,7 +10,7 @@ pipeline {
         // This can be http or https
         NEXUS_PROTOCOL = "http"
         // Where your Nexus is running
-        NEXUS_URL = "34.204.179.187:8081"
+        NEXUS_URL = "35.175.187.49:8081"
         // Repository where we will upload the artifact
         NEXUS_REPOSITORY = "mvc-maven-helloworld_snt_deploy_pipeline"
         // Jenkins credential id to authenticate to Nexus OSS
@@ -96,7 +96,7 @@ pipeline {
         stage('deploy'){
             steps{
                 withCredentials([usernameColonPassword(credentialsId: 'tomcat-credentials', variable: 'tomcat_cred')]) {
-                sh "curl -v -u ${tomcat_cred} -T result.war 'http://18.206.169.50:8080/manager/text/deploy?path=/sonarnexusdeploy&update=true'"
+                sh "curl -v -u ${tomcat_cred} -T result.war 'http://3.80.124.245:8080/manager/text/deploy?path=/sonarnexusdeploy&update=true'"
                 } 
             }
         }
